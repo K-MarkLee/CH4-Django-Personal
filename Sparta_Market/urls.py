@@ -18,12 +18,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from products import views
+from django.shortcuts import redirect
 
 
 urlpatterns = [
     path("admin/", admin.site.urls), # 개발자 페이지로 이동
-    path("", views.index, name = "index"), # index 페이지로 이동
+    path('', lambda request: redirect('products:index'), name='index'),  # 기본 경로를 products:index로 리다이렉트
 
 
     path("users/", include("users.urls")), # users app의 urls.py로 이동
