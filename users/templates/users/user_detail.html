@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1>Your Account Details</h1>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Followers:</strong> {{ user.followers.count }}</p>
+    <p><strong>Followings:</strong> {{ user.followings.count }}</p>
+
+    <hr>
+
+    <h2>Actions</h2>
+    <ul>
+        <li><a href="{% url 'accounts:update' user.pk %}">Edit Your Information</a></li>
+        <br>
+        <li><a href="{% url 'accounts:delete' user.pk %}">Delete Your Account</a></li>
+    </ul>
+    <br><br>
+    <a href="{% url 'products:main' %}">Back to Home</a>
+
+{% endblock content %}

@@ -22,7 +22,11 @@ from products import views
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin/", admin.site.urls), # 개발자 페이지로 이동
     path("", views.index, name = "index"), # index 페이지로 이동
+
+
     path("users/", include("users.urls")), # users app의 urls.py로 이동
+    path("products/", include("products.urls")), # products app의 urls.py로 이동
+    path("accounts/", include("accounts.urls")), # accounts app의 urls.py로 이동
 ]

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Log in Required</h1>
+    <p>Please Log in to enter Sparta-Market</p>
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Login">
+    </form>
+
+    <br>
+    <p>Don't have an account? <a href="{% url "accounts:create" %}">Create Account</a></p>
+{% endblock %}

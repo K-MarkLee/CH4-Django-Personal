@@ -1,0 +1,19 @@
+
+
+<h1>Delete Your Account</h1>
+<h3>Are you sure you want to delete your account? This action cannot be undone.</h3>
+
+<form action="{% url "accounts:delete" user.pk%}" method="POST">
+    {% csrf_token %}
+    <br><br>
+
+    <p>Enter correct password to delete Account</p>
+    {{ form.as_p }}
+    <br>
+    <button type="submit">Delete Account</button>
+</form>
+<br>
+<hr>
+
+
+<p>Go back to <a href="{% url "users:user_detail" user.pk%}">Account Detail</a></p>

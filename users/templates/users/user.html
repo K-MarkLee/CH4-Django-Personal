@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+    <h1>This is {{request.user.username}}'s page</h1>
+
+    <br>
+    <hr>
+    <h1>User Information</h1>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Followers: {{ user.followers.count }}</p>
+    <p>Followings: {{ user.followings.count }}</p>
+
+    <br><br>
+    <a href="{% url "products:main" %}">
+        Go to main page
+    </a>
+
+{% endblock content %}

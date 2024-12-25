@@ -89,6 +89,9 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "accounts.CustomUser"
+LOGIN_URL = "accounts:login" # 로그인 페이지로 이동하도록 설정
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
