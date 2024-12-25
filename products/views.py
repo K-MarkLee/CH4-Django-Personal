@@ -24,7 +24,7 @@ def index(request):
 
 @login_required
 def main(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-created_at')  # 최신 글 순으로 정렬
     context = {'products': products}
     return render(request, 'products/main.html', context)
 

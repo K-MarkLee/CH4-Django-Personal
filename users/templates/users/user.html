@@ -5,21 +5,38 @@
 
 
     <h1>{{user.username | upper}}'s Information Page</h1>
-    <p>Username: {{ user.username }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <p>Followers: {{ user.followers.count }}</p>
-    <p>Followings: {{ user.followings.count }}</p>
-    <p>Liked products : {{user.liked_products.count}}</p>
+    <p><strong>Username</strong>: {{ user.username }}</p>
+    <p><strong>Followers</strong>: {{ user.followers.count }}</p>
+    <p><strong>Followings</strong>: {{ user.followings.count }}</p>
+    <p><strong>Liked products</strong> : {{user.liked_products.count}}</p>
 
-    <br><br>
-    {% if user == request.user %}
-        <a href="{% url "users:detail" user.pk %}">Personal Detail</a>
-        <br>
-        <br>
+    <br>
+    {% if request.user != user %}
+        <form method="POST" action="{% url 'users:follow' user.pk %}">
+            {% csrf_token %}
+            {% if is_following %}
+                <button type="submit">Unfollow</button>
+                <br>
+            {% else %}
+                <button type="submit">Follow</button>
+                <br>
+            {% endif %}
+        </form>
     {% endif %}
 
-    <a href="{% url "products:main" %}">Go to main page</a>
+    <hr>
+    <h2>Actions</h2>
+    <ul>
+        
+        {% if user == request.user %}
+            <li>
+                <a href="{% url "users:detail" user.pk %}">Personal Detail</a>
+            </li>
+            
+        {% endif %}
+        <br>
+        <li><a href="{% url 'products:main' %}">Back to Main Page</a></li>
+    </ul>
+    <br><br>
 
 {% endblock content %}

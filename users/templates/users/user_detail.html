@@ -7,6 +7,7 @@
     <p><strong>First Name:</strong> {{ user.first_name }}</p>
     <p><strong>Last Name:</strong> {{ user.last_name }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Date_joined :</strong> {{user.date_joined}}</p>    
     <p><strong>Followers:</strong> {{ user.followers.count }}</p>
     <p><strong>Followings:</strong> {{ user.followings.count }}</p>
     <p><strong>Liked Products :</strong> {{ user.liked_products.all.count }} </p>
@@ -18,8 +19,10 @@
         <li><a href="{% url 'accounts:update' user.pk %}">Edit Your Information</a></li>
         <br>
         <li><a href="{% url 'accounts:delete' user.pk %}">Delete Your Account</a></li>
+        <br>
+        <li><a href="{% url 'products:main' %}">Back to Main Page</a></li>
     </ul>
-    <br><br>
-    <a href="{% url 'products:main' %}">Back to Home</a>
+    <br>
+    
 
 {% endblock content %}
