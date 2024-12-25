@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1>Product Create</h1>
+
+    <form action="{% url "products:create" %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Product</button>
+    </form>
+
+    <br>
+    <p>Go back to <a href="{% url "products:main" %}">Main Page</a></p>
+
+{% endblock content %}

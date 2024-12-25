@@ -12,8 +12,6 @@ User = get_user_model()
 @login_required
 def user(request, pk):
     if request.user.is_authenticated:
-        if request.user.pk == pk:
-            return redirect('users:user_detail', pk=pk)
         user = get_object_or_404(User, pk=pk)  # 특정 유저 가져오기
         context = {'user': user}
         return render(request, 'users/user.html', context)
@@ -24,11 +22,7 @@ def user(request, pk):
 
 
 @login_required
-def user_detail(request, pk):
-    
-    if request.user.pk != pk:
-        return redirect('users:user', pk=pk)  # 본인이 아니면 일반 정보 페이지로 리다이렉트
-    
+def detail(request, pk):
 
     if request.user.is_staff or request.user.is_superuser or request.user.pk == pk:
         user = get_object_or_404(User, pk=pk)

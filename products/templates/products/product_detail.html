@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h1>{{ product.title }}</h1>
+    {%if user.username != product.author.username %}
+        <form method="POST" action="{% url 'products:like' product.pk %}">
+            {% csrf_token %}
+            {% if liked %}
+                <button type="submit" class="like-button">
+                    <img src="{% static "products/heart.png "%}" alt="DisLike" class="like-heart">
+                </button>
+            {% else %}
+                <button type="submit" class="like-button">
+                    <img src="{% static 'products/blank_heart.png' %}" alt="Like" class="like-heart">
+                </button>
+            {% endif %}
+        </form>    
+
+    {% endif %}
+
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+    {% endif %}	
+
+    <p><strong>Seller:</strong> {{ product.author.username }}</p>
+    <p><strong>Price:</strong> {{ product.price }} WON</p>
+    <hr>
+    <p><strong>Description</strong></p>
+    <p>{{ product.description }}</p>
+    <br>
+    <hr>
+
+    <h2>Actions</h2>
+    <ul>
+        {% if request.user == product.author or request.user.is_staff %}
+            <li><a href="{% url 'products:update' product.pk %}">Edit</a></li>
+            <li>
+                <form method="POST" action="{% url 'products:delete' product.pk %}">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endif %}
+    </ul>
+    <a href="{% url 'products:main' %}">Back to List</a>
+
+
+
+{% endblock content %}

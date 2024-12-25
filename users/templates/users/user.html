@@ -4,21 +4,22 @@
 {% block content %}
 
 
-    <h1>This is {{request.user.username}}'s page</h1>
-
-    <br>
-    <hr>
-    <h1>User Information</h1>
+    <h1>{{user.username | upper}}'s Information Page</h1>
     <p>Username: {{ user.username }}</p>
     <p>Email: {{ user.email }}</p>
     <p>First Name: {{ user.first_name }}</p>
     <p>Last Name: {{ user.last_name }}</p>
     <p>Followers: {{ user.followers.count }}</p>
     <p>Followings: {{ user.followings.count }}</p>
+    <p>Liked products : {{user.liked_products.count}}</p>
 
     <br><br>
-    <a href="{% url "products:main" %}">
-        Go to main page
-    </a>
+    {% if user == request.user %}
+        <a href="{% url "users:detail" user.pk %}">Personal Detail</a>
+        <br>
+        <br>
+    {% endif %}
+
+    <a href="{% url "products:main" %}">Go to main page</a>
 
 {% endblock content %}
