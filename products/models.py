@@ -16,3 +16,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def price_format(self):
+        return f'{self.price:,}'  # 천 단위로 콤마 찍기

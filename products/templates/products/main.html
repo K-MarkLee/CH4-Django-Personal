@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 
+
 {% block content %}
 
 
@@ -8,13 +9,23 @@
     <a href="{% url 'products:create' %}">Add New Product</a>
     <br><br>
     <hr>
-    <ul>
+    <ul style="list-style-type: none; padding: 0;">
         {% for product in products %}
-            <li>
-                <a href="{% url 'products:detail' product.pk %}">
-                    <strong>{{ product.title }}</strong> - {{ product.price }} Won
+            <li style="margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+                {% comment %} 항목 전체를 링크로 감싸기 {% endcomment %}
+                <a href="{% url 'products:detail' product.pk %}" style="text-decoration: none; color: inherit; display: block;">
+                    <h2>{{ product.title }}</h2>
+                    
+                    {% comment %} 제품 이미지 {% endcomment %}
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" style="width: 200px; height: auto;">
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                    
+                    <p><strong>Price:</strong> {{ product.price_format}} WON</p>
                 </a>
-                
+                <hr style="border: 1px solid #ccc;">
             </li>
         {% endfor %}
     </ul>
