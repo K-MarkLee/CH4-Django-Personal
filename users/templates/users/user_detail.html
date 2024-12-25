@@ -10,7 +10,7 @@
     <p><strong>Date_joined :</strong> {{user.date_joined}}</p>    
     <p><strong>Followers:</strong> {{ user.followers.count }}</p>
     <p><strong>Followings:</strong> {{ user.followings.count }}</p>
-    <p><strong>Liked Products :</strong> {{ user.liked_products.all.count }} </p>
+    <p><a href="{% url "products:liked_products" %}"><strong>Liked Products :</strong> {{ user.liked_products.all.count }} </a></p>
 
     <hr>
 

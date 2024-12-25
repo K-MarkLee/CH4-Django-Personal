@@ -44,7 +44,12 @@
             </li>
         {% endif %}
     </ul>
-    <a href="{% url 'products:main' %}">Back to List</a>
+    {% if from_liked_products %}
+        <a href="{% url 'products:liked_products' %}">Back to Liked Products</a>
+    {% else %}
+        <a href="{% url 'products:main' %}">Back to Main</a>
+    {% endif %}
+
 
 
 

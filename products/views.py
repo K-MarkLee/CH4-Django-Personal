@@ -52,7 +52,12 @@ def create(request):
 def detail(request, pk):
     product = Product.objects.get(pk=pk)
     liked = product.likes.filter(id=request.user.id).exists() # 좋아요를 눌렀는지 확인
-    context = {'product': product, 'liked': liked}
+    from_liked_products = request.GET.get('from') == 'liked_products'  # 좋아요 누른 글에서 왔는지 확인
+    context = {
+        'product': product, 
+        'liked': liked, 
+        'from_liked_products': from_liked_products
+    }
     return render(request, 'products/product_detail.html', context)
 
 
@@ -96,3 +101,10 @@ def like(request, pk):
             product.likes.add(request.user) # 좋아요
         return redirect('products:detail', pk=pk)
     return redirect('products:detail', pk=pk)
+
+
+@login_required
+def liked_products(request):
+    liked_products = request.user.liked_products.all()
+    context = {'products': liked_products} # 좋아요 누른 글만 필터링
+    return render(request, 'products/product_liked.html', context)

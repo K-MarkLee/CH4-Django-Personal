@@ -1,20 +1,14 @@
 {% extends "base.html" %}
 
 
-
 {% block content %}
-
-
-    <h1>Product List</h1>
-    <a href="{% url 'products:create' %}">Add New Product</a>
-    <br><br>
-    <hr>
+    <h1>My Liked Products</h1>
     <ul style="list-style-type: none; padding: 0;">
         {% if products %}
             {% for product in products %}
                 <li style="margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
                     {% comment %} 항목 전체를 링크로 감싸기 {% endcomment %}
-                    <a href="{% url 'products:detail' product.pk %}" style="text-decoration: none; color: inherit; display: block;">
+                    <a href="{% url 'products:detail' product.pk %}?from=liked_products" style="text-decoration: none; color: inherit; display: block;">
                         <h2>{{ product.title }}</h2>
                         
                         {% comment %} 제품 이미지 {% endcomment %}
@@ -30,9 +24,11 @@
                 </li>
             {% endfor %}
         {% else %}
-            <p>No products yet.</p>
+            <p>No liked products yet.</p>
         {% endif %}
     </ul>
+    <a href="{% url 'products:main' %}">Back to Main</a>
+
 
 
 {% endblock content %}

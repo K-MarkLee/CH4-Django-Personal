@@ -10,5 +10,6 @@ urlpatterns = [
     path("<int:pk>/delete/", views.delete, name = "delete"), # delete 페이지로 이동
     path("<int:pk>/update/", views.update, name = "update"), # update 페이지로 이동
     path("<int:pk>/like/", views.like, name = "like"), # like 페이지로 이동
+    path("liked_products/", views.liked_products, name = "liked_products"), # like_products 페이지로 이동
 ]
  
