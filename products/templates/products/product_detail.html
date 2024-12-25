@@ -24,7 +24,7 @@
     <img src="{{ product.image.url }}" alt="{{ product.title }}">
     {% endif %}	
 
-    <p><strong>Seller:</strong> {{ product.author.username }}</p>
+    <p><a href="{% url "users:user" product.author.pk%}"><strong>Seller:</strong> {{ product.author.username }}</a></p>
     <p><strong>Price:</strong> {{ product.price }} WON</p>
     <hr>
     <p><strong>Description</strong></p>
