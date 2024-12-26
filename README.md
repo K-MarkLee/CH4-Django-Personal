@@ -67,27 +67,35 @@
 ```
 project/
 ├── accounts/
-│   ├── models.py          # 사용자 모델(CustomUser)
-│   ├── views.py           # 사용자 관련 뷰
-│   ├── urls.py            # 사용자 관련 URL 매핑
-│   ├── templates/accounts/
-│       ├── profile.html   # 사용자 프로필 페이지
+│   ├── forms.py           # 계정 관리 커스텀 폼
+│   ├── models.py          # 계정 관리 커스텀 모델
+│   ├── urls.py            # 계정 관리 URL 매핑
+│   ├── views.py           # 계정 관리 뷰
+│   ├── templates/accounts/ # 계정 관리 html 목록 
+|
 ├── products/
-│   ├── models.py          # 제품 모델(Product)
-│   ├── views.py           # 제품 관련 뷰
-│   ├── urls.py            # 제품 관련 URL 매핑
-│   ├── templates/products/
-│       ├── main.html      # 제품 목록 페이지
-│       ├── detail.html    # 제품 상세 페이지
-│       ├── liked_products.html # 좋아요한 제품 목록 페이지
+│   ├── forms.py           # 물품 커스텀 폼
+│   ├── models.py          # 물품 커스텀 모델
+│   ├── urls.py            # 물품 관련 URL 매핑
+│   ├── views.py           # 물품 관련 뷰
+│   ├── templates/products/ # 물품 관련 html 목록
+|
+├── users/
+│   ├── urls.py            # 유저 관련 URL 매핑
+|   ├── views.py           # 유저 관련 뷰
+|   ├── templates/users/   # 유저 관련 html 목록 
+|
 ├── project/
 │   ├── settings.py        # Django 설정
 │   ├── urls.py            # 전체 URL 매핑
+|
 ├── static/
 │   ├── css/
 │       ├── styles.css     # 전역 CSS
+|
 ├── templates/
 │   ├── base.html          # 공통 레이아웃
+|
 ```
 &nbsp;
 
@@ -155,3 +163,28 @@ python manage.py createsuperuser
 - 검색 기능
 ---
 
+&nbsp;
+## Trouble Shooting
+1. `SystemCheckError` : Reverse accessor clashes
+- 문제 : 
+    - Django 에서 `CustomUser`모델이 2개 정의되서 충돌이 발생
+- 해결방법:
+    - `accounts.CustomUser` 만 유지라고 이외의 CustomUser 삭제
+    - `setting.py`에서 `AUTH_USER_MODEL` 을 `accounts.CustomUser`로 등록
+    - 데이터베이스 마이그레이션
+
+&nbsp;
+2. 좋아요 상태를 템플릿에서 처리 할때 `TemplateSyntaxError`
+- 문제 :
+    - `request.user.following.fillter(pk = user.pk).exists()`와 같은 메서드 호출이 템플릿에서 작동하지 않음
+- 해결방법 : 
+    - 뷰에서 좋아요 상태를 처리하게하는 컨텍스트 추가.
+    ```is_following = request.user.followings.filter(pk=user.pk).exists()```
+    - 템플릿에서는 이를 가져와 `is_following`을 사용하여서 조건으로 처리
+
+&nbsp;
+3. 물품 리스트가 비어 있을 때 에러 발생
+- 문제 : 
+    - 물품이 없을 떄 빈페이지로 표시되거나 에러가 발생
+- 해결방법 :
+    - 템플릿에서 `{% if products%}` 조건을 for 조건문 밖에 추가
