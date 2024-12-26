@@ -158,10 +158,7 @@ python manage.py createsuperuser
 
 &nbsp;
 ---
-## 추가 구현 계획
-- 댓글 기능
-- 검색 기능
----
+
 
 &nbsp;
 ## Trouble Shooting
@@ -188,3 +185,10 @@ python manage.py createsuperuser
     - 물품이 없을 떄 빈페이지로 표시되거나 에러가 발생
 - 해결방법 :
     - 템플릿에서 `{% if products%}` 조건을 for 조건문 밖에 추가
+&nbsp;
+---
+&nbsp;
+## 추가 구현 계획
+- 댓글 기능
+- 검색 기능
+---
