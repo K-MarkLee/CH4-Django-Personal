@@ -71,6 +71,7 @@ def delete(request, pk):
     return redirect('products:detail', pk=pk)
 
 
+
 @login_required
 def update(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -89,6 +90,7 @@ def update(request, pk):
     return render(request, 'products/product_update.html', context)
 
 
+
 @login_required
 def like(request, pk):
     # 작성자는 좋아요를 누를 수 없음
@@ -105,6 +107,6 @@ def like(request, pk):
 
 @login_required
 def liked_products(request):
-    liked_products = request.user.liked_products.all()
+    liked_products = request.user.liked_products.all().order_by('-created_at')  # 좋아요 누른 글만 최신 글 순으로 정렬
     context = {'products': liked_products} # 좋아요 누른 글만 필터링
     return render(request, 'products/product_liked.html', context)
